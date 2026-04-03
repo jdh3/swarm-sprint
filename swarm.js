@@ -235,11 +235,18 @@ ${wt.task.description}
 ${(wt.task.successCriteria || ['Task implemented', 'TypeScript compiles clean', 'No unrelated files changed']).join('\n- ')}
 
 ## WHEN DONE
-Report back with:
+1. Stage and commit all your changes:
+   ```
+   git add -A
+   git commit -m "<short description of what you built>"
+   ```
+2. Then report back with:
 - STATUS: COMPLETE | BLOCKED | FAILED
 - FILES_CHANGED: list of files you modified
 - SUMMARY: one paragraph of what you did
 - BLOCKERS: any issues encountered
+
+Do NOT skip the git commit step. The coordinator cannot merge uncommitted work.
 `.trim();
 }
 
@@ -278,7 +285,8 @@ function cleanup(worktrees, repoPath, results) {
 
 // ── Phase 5: Write sprint log ─────────────────────────────────────────────────
 function writeSprintLog(tasks, results, repoPath) {
-  const logDir  = path.join(path.dirname(repoPath), 'workspace-worker-1', 'memory');
+  // Write log relative to the repo's parent, or fall back to cwd
+  const logDir  = path.join(path.dirname(repoPath), 'memory');
   const logFile = path.join(logDir, 'swarm-log.md');
   const ts      = new Date().toISOString();
 
