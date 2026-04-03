@@ -75,6 +75,8 @@ Read `swarm-packages.json`. For each package, spawn a subagent with:
 - Instruction to stay inside that directory only
 - Instruction to report back: STATUS / FILES_CHANGED / SUMMARY / BLOCKERS
 
+> **Note:** The agent prompt now includes an explicit `git add -A && git commit` step before reporting back. If an agent reports COMPLETE but the branch shows no new commits, the changes are uncommitted — commit them manually before merging.
+
 ### Step 5 — Review each agent's output
 
 ```bash
