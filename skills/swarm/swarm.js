@@ -285,7 +285,8 @@ function cleanup(worktrees, repoPath, results) {
 
 // ── Phase 5: Write sprint log ─────────────────────────────────────────────────
 function writeSprintLog(tasks, results, repoPath) {
-  const logDir  = path.join(path.dirname(repoPath), 'workspace-worker-1', 'memory');
+  // Write log relative to the repo's parent, or fall back to cwd
+  const logDir  = path.join(path.dirname(repoPath), 'memory');
   const logFile = path.join(logDir, 'swarm-log.md');
   const ts      = new Date().toISOString();
 
